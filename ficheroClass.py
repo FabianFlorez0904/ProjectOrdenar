@@ -4,18 +4,11 @@
 from tkinter.filedialog import *
 from io import *
 
-# filename = askopenfilename()
-# print(filename)
-# fichero = open(filename,"r")
-# print(len(fichero.readlines()))
-# fichero.close()
-# directoriname = asksaveasfile()
 class Fichero():
     nombre = ""
     tipo = ""
     cantLineas = 0
     lineas = [] 
-    
     # Constructor
     def __init__(self):
         pass
@@ -38,6 +31,8 @@ class Fichero():
     def crearFicheroSalida(self):
         ficherosalida = asksaveasfilename(defaultextension='.txt')
         self.nombre = ficherosalida
+        ficherosalida = open(ficherosalida,"w")
+        ficherosalida.close()
 
     def crearFicheroEntrada(self):
         self.tipo = "r+"
@@ -46,8 +41,23 @@ class Fichero():
         self.leerLineas()
         print("Se creo un fichero")
 
+    def escribirFicheroSalida(self, lista):
+        fichero = open(self.nombre,"w")
+        for line in lista:
+            fichero.write(str(line))
+            fichero.write("\n")
+        fichero.close()
+
     def __str__(self):
         text = "Nombre fichero: {}\n"\
             "Cantidad de lineas: {}\n".format(self.nombre,self.cantLineas)
         return text
-        
+    
+    def getNombre(self):
+        return self.nombre
+
+    def getCantLineas(self):
+        return self.cantLineas
+
+    def getLineas(self):
+        return self.lineas        
